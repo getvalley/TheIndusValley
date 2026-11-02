@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b0d">
+<meta name="description" content="Valley is a thoughtful Android browser with smart search, reader mode, translation, tab groups and more.">
+<title>Valley Browser | Browse beyond</title>
+<style>
+:root{--bg:#090a0c;--panel:#141518;--panel2:#1b1c20;--text:#f5f4f1;--muted:#aaa9a5;--line:#303034;--orange:#ff9b45;--orange2:#ff7137}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}.top-download{position:fixed;z-index:30;top:12px;left:50%;transform:translateX(-50%);width:min(94%,540px);display:flex;justify-content:center;pointer-events:none}.top-download a{pointer-events:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border:1px solid #ffb46b66;border-radius:999px;padding:13px 23px;background:linear-gradient(135deg,#ffbd70,#ff843d);color:#1b0d04;font-weight:800;box-shadow:0 8px 32px #0009;transition:.2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}.btn.secondary{background:#ffffff0b;color:var(--text);border-color:#ffffff25;box-shadow:none}
+header{min-height:760px;padding:120px 24px 80px;display:grid;place-items:center;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 35%,#4a2818 0,#1b120e 33%,#090a0c 73%)}
+.hero{max-width:1100px;text-align:center;position:relative;z-index:1}.eyebrow{color:var(--orange);letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:850}
+h1{font-size:clamp(58px,10vw,116px);letter-spacing:-.08em;line-height:.96;margin:22px 0}h1 span{background:linear-gradient(100deg,#fff,#ffc58d 60%,#ff8741);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:680px;margin:0 auto 28px;color:#d0c5bc;font-size:clamp(17px,2vw,21px)}
+.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.status{font-size:12px;color:#a9a19b;margin-top:16px}
+.browser{margin:62px auto 0;max-width:850px;border:1px solid #ffffff26;border-radius:22px;background:#151313dd;box-shadow:0 35px 100px #0009;overflow:hidden;text-align:left;transform:perspective(1000px) rotateX(2deg)}
+.browser-top{height:52px;background:#252323;display:flex;align-items:center;padding:0 17px;gap:8px;border-bottom:1px solid #ffffff14}.dot{width:9px;height:9px;border-radius:50%;background:#8b827c}.address{margin:auto;background:#111;border:1px solid #ffffff16;border-radius:9px;padding:6px 24px;color:#c8beb6;font-size:12px;min-width:48%}
+.browser-body{height:220px;padding:27px;display:grid;grid-template-columns:1fr 1fr;gap:20px;background:linear-gradient(135deg,#201711,#101012)}
+.mock-copy h3{font-size:27px;line-height:1.1;margin:4px 0 10px}.mock-copy p{color:#b4a69c;font-size:13px}.mock-pill{display:inline-block;border-radius:20px;background:#60381f;padding:7px 12px;font-size:11px;color:#ffd1a7}
+.mock-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mock-card{border:1px solid #ffffff18;border-radius:13px;background:#ffffff08;padding:14px;display:flex;flex-direction:column;justify-content:space-between}.mock-card b{font-size:13px}.mock-card small{color:#b1a59c}
+section{padding:94px 24px}.wrap{max-width:1100px;margin:auto}.section-head{text-align:center;max-width:730px;margin:0 auto 42px}.section-head h2{font-size:clamp(34px,5vw,54px);letter-spacing:-.055em;line-height:1.05;margin:10px 0 14px}.section-head p{color:var(--muted);margin:0}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{min-height:205px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#1b1917,#101113);padding:24px}.glyph{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#ff9b451d;color:#ffb16e;font-size:21px;margin-bottom:20px}.feature h3{margin:0 0 8px;font-size:19px}.feature p{margin:0;color:var(--muted);font-size:14px}
+.showcase{background:#101113;border-block:1px solid #ffffff0d}.show-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.show{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#171719}.show-visual{height:220px;padding:20px;display:grid;place-items:center;background:radial-gradient(ellipse,#462817,#141210 70%)}.show-text{padding:20px}.show-text h3{margin:0 0 5px}.show-text p{margin:0;color:var(--muted);font-size:14px}
+.media-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:13px;background:#08090b;display:grid;place-items:center}.media-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.demo-section{padding-top:90px}.compare-wrap{position:relative;max-width:760px;margin:0 auto;border:1px solid #ffffff2a;border-radius:20px;overflow:hidden;background:#171719;box-shadow:0 20px 60px #0007}
+.compare{position:relative;width:100%;aspect-ratio:694/1402;max-height:690px;overflow:hidden;background:#111}.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}.compare img.reader{clip-path:inset(0 0 0 8%);animation:readerReveal 7s ease-in-out infinite alternate}
+.compare .wipe{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--orange);box-shadow:0 0 18px #ff8d3c;animation:wipeMove 7s ease-in-out infinite alternate}
+.compare .wipe:after{content:"↔";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#201006;font-weight:900;box-shadow:0 4px 20px #0008}
+@keyframes wipeMove{0%{left:8%}100%{left:92%}}@keyframes readerReveal{0%{clip-path:inset(0 0 0 8%)}100%{clip-path:inset(0 0 0 92%)}}
+.compare-labels{display:flex;justify-content:space-between;padding:12px 16px;color:#c7c1bc;font-size:12px}.compare-labels b{color:#ffb36e}
+.translation{max-width:760px;margin:0 auto;border:1px solid #ffffff2a;border-radius:20px;overflow:hidden;background:#171719}.translation-stage{position:relative;height:440px;overflow:hidden;background:#f4f4f4}.translation-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}.translation-stage img.english{clip-path:inset(8% 0 0 0);animation:translationWipe 6s ease-in-out infinite alternate}
+.translation-line{position:absolute;left:0;right:0;top:50%;height:3px;background:var(--orange);box-shadow:0 0 16px #ff873c;animation:translationBar 6s ease-in-out infinite alternate}
+.translation-line:after{content:"↕";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#201006;font-weight:900}
+@keyframes translationBar{0%{top:8%}100%{top:92%}}@keyframes translationWipe{0%{clip-path:inset(8% 0 0 0)}100%{clip-path:inset(92% 0 0 0)}}
+.video-card{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#171719}.video-view{height:360px;padding:18px;background:radial-gradient(ellipse,#4b2a17,#121110 75%)}.video-view .media-frame{border:1px solid #ffffff24}.video-view video{object-fit:cover}
+.video-view.smart{height:300px}.video-view.smart video{object-fit:contain;background:#050505}.video-view.tabs{height:500px}.video-view.tabs{background:#050505;display:grid;place-items:center}.video-view.tabs .media-frame{width:100%;height:100%;background:#050505}.video-view.tabs video{width:auto;height:100%;max-width:100%;object-fit:contain}
+.video-card .show-text{padding:19px 21px}
+.tutorial{background:linear-gradient(180deg,#14100d,#090a0c)}.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.step{border:1px solid var(--line);border-radius:20px;background:#151719;padding:22px}.step-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}.num{width:31px;height:31px;display:grid;place-items:center;border-radius:50%;background:var(--orange);color:#1a0c03;font-weight:850}.step h3{margin:0;font-size:17px}.step p{color:var(--muted);font-size:14px;margin:0 0 14px}.phone-shot{height:165px;border-radius:13px;border:1px solid #ffffff22;background:#e9edf3;color:#1a2432;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center}.phone-icon{font-size:28px}.phone-shot strong{font-size:14px}.phone-shot small{font-size:11px;color:#596579}.fake-button{padding:7px 17px;border-radius:7px;background:#d96d25;color:white;font-size:11px;font-weight:700}.fake-row{width:85%;padding:9px;border-radius:7px;background:#fff;border:1px solid #d6dce5;font-size:11px;text-align:left}.note{max-width:820px;margin:25px auto 0;color:#a8a19a;font-size:13px;text-align:center}
+.safety{margin:35px auto 0;max-width:900px;border:1px solid #ff9b4544;border-radius:20px;padding:25px;background:linear-gradient(135deg,#24180f,#141313)}.safety h3{margin:0 0 7px;color:#ffb36e}.safety p{margin:0;color:#c5b9ae;font-size:14px}
+.download-panel{text-align:center;padding:78px 24px;background:radial-gradient(ellipse at center,#482719,#15100d 65%);border-block:1px solid #ffffff12}.download-panel h2{font-size:clamp(34px,5vw,52px);letter-spacing:-.05em;margin:0 0 12px}.download-panel p{color:#c7b7aa;margin:0 auto 25px;max-width:590px}.download-count{margin:18px auto 0;display:flex;justify-content:center;align-items:baseline;gap:8px;color:#c7b7aa;font-size:13px}.download-count strong{font-size:22px;color:#fff;font-variant-numeric:tabular-nums}.download-count .count-label{color:#a9a19b}
+footer{background:#f2f1ef;color:#272522;padding:45px max(24px,calc((100% - 1050px)/2)) 30px}.foot-top{display:flex;justify-content:space-between;gap:30px;align-items:center;padding-bottom:28px;border-bottom:1px solid #c9c6c1}.brand{font-size:27px;font-weight:850;letter-spacing:-.06em}.foot-links{display:flex;gap:20px;flex-wrap:wrap;color:#55514c;font-size:13px}.foot-links a{text-decoration:none}.foot-groups{padding:18px 0;border-bottom:1px solid #c9c6c1}.foot-groups details{border-bottom:1px solid #c9c6c1;padding:13px 0}.foot-groups details:last-child{border:0}.foot-groups summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between}.foot-groups summary:after{content:"⌄";font-size:20px}.foot-groups p{color:#65605a;font-size:13px;margin:9px 0 0}.foot-meta{padding-top:22px;color:#77716a;font-size:13px}.foot-meta p{margin:8px 0}.foot-meta a{color:#a34e19}
+@media(max-width:760px){header{min-height:690px;padding-inline:17px}.browser-body{height:210px;padding:17px;grid-template-columns:1fr}.mock-cards{display:none}.features{grid-template-columns:1fr 1fr}.show-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.foot-top{align-items:flex-start;flex-direction:column}.foot-links{gap:13px}.translation-stage{height:380px}.video-view.smart{height:240px}.video-view.tabs{height:430px}}
+@media(max-width:430px){.features{grid-template-columns:1fr}.feature{min-height:0}.browser{margin-top:45px}.address{min-width:65%}.hero-actions .btn{width:100%}.compare{aspect-ratio:694/1402;max-height:560px}.translation-stage{height:320px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="top-download"><a class="btn" href="Valley-1.0.apk" download data-valley-download>↓ &nbsp; Download Valley for Android</a></div>
+<header id="top"><div class="hero">
+ <div class="eyebrow">Browse beyond the ordinary</div><h1>Find your <span>Valley.</span></h1>
+ <p class="lead">A browser built to make the web feel a little more yours. Thoughtful tools, a distinctive interface, and more control over how you browse.</p>
+ <div class="hero-actions"><a class="btn" href="Valley-1.0.apk" download data-valley-download>↓ &nbsp; Download Valley for Android</a><a class="btn secondary" href="#features">Explore Valley&nbsp; ↓</a></div>
+ <div class="status">Valley 1.0 – Terai · Android</div>
+ <div class="browser"><div class="browser-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><div class="address">⌕ &nbsp; valley.browser / explore</div><span>＋　▢　⋮</span></div>
+ <div class="browser-body"><div class="mock-copy"><span class="mock-pill">YOUR WEB. YOUR WAY.</span><h3>Browse beyond<br>the ordinary.</h3><p>Search, read, translate and organise with Valley.</p></div><div class="mock-cards"><div class="mock-card"><b>Smart Search</b><small>Search with context</small></div><div class="mock-card"><b>Reader Mode</b><small>Focus on the words</small></div><div class="mock-card"><b>Tab Groups</b><small>Keep it organised</small></div><div class="mock-card"><b>Translation</b><small>Understand more</small></div></div></div></div>
+ </div></header>
+<section id="features"><div class="wrap"><div class="section-head"><div class="eyebrow">Built around your browsing</div><h2>Tools that make the web yours.</h2><p>From finding the right page to making it easier to read, Valley brings useful controls into one place.</p></div>
+<div class="features">
+ <article class="feature"><div class="glyph">⌕</div><h3>Smart Search</h3><p>Search from the homepage with quick access to your searches and favourite destinations.</p></article>
+ <article class="feature"><div class="glyph">▤</div><h3>Reader Mode</h3><p>Turn supported webpages into a focused reading layout, with font and appearance controls.</p></article>
+ <article class="feature"><div class="glyph">文</div><h3>Translation</h3><p>Translate webpage content to make information more accessible across languages.</p></article>
+ <article class="feature"><div class="glyph">▦</div><h3>Tab management</h3><p>Organise open pages with tab groups and a dedicated tab overview.</p></article>
+ <article class="feature"><div class="glyph">✦</div><h3>Hide distractions</h3><p>Remove selected page elements when you want a cleaner view of the content.</p></article>
+ <article class="feature"><div class="glyph">☆</div><h3>Favourites and History</h3><p>Keep useful pages close and revisit websites you've already explored.</p></article>
+</div></div></section>
+<section class="showcase demo-section" id="reader"><div class="wrap"><div class="section-head"><div class="eyebrow">See the difference</div><h2>One page. A clearer reading experience.</h2><p>The original webpage and Valley Reader are layered together. The orange sweep moves across the page to reveal the transformation.</p></div>
+<div class="compare-wrap"><div class="compare"><img src="assets/smart-reader-original.jpg" alt="Original webpage before Reader Mode"><img class="reader" src="assets/smart-reader-valley.jpg" alt="The same webpage in Valley Reader"><div class="wipe"></div></div><div class="compare-labels"><span>Original webpage</span><b>Valley Reader</b></div></div></div></section>
+<section class="demo-section"><div class="wrap"><div class="section-head"><div class="eyebrow">Language without barriers</div><h2>Translation, made visual.</h2><p>Watch the orange divider travel between the original Hindi page and its English translation.</p></div>
+<div class="translation"><div class="translation-stage"><img src="assets/translation-hindi.jpg" alt="Webpage displayed in Hindi"><img class="english" src="assets/translation-english.jpg" alt="The same webpage translated into English"><div class="translation-line"></div></div><div class="compare-labels"><span>Hindi · above the line</span><b>English translation · below the line</b></div></div></div></section>
+<section class="showcase demo-section" id="smart-search"><div class="wrap"><div class="section-head"><div class="eyebrow">Find what you're looking for</div><h2>Smart Search in action.</h2><p>A close-up of the complete search query, followed by the first Flipkart result.</p></div>
+<div class="video-card"><div class="video-view smart"><div class="media-frame"><video src="assets/smart-search.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Valley Smart Search demonstration"></video></div></div><div class="show-text"><h3>Search from one place</h3><p>The camera stays on the search field while the query is typed, then moves down to the first Flipkart product result.</p></div></div></div></section>
+<section class="demo-section" id="tabs"><div class="wrap"><div class="section-head"><div class="eyebrow">Stay in control</div><h2>Your tabs, your organisation.</h2><p>See tab management and groups in the actual Valley interface.</p></div>
+<div class="video-card"><div class="video-view tabs"><div class="media-frame"><video src="assets/tab-management.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Valley tab management demonstration"></video></div></div><div class="show-text"><h3>Tab management</h3><p>See the full tab manager and two group changes, without the recording controls at the end.</p></div></div></div></section>
+<section><div class="wrap"><div class="section-head"><div class="eyebrow">And that's not all</div><h2>Many more features.</h2><p>Valley keeps growing. Explore the browser and discover the smaller details that make everyday browsing feel more considered.</p></div>
+<div class="features"><article class="feature"><div class="glyph">⌂</div><h3>Customisable home</h3><p>A starting point with quick access to the places you use most.</p></article><article class="feature"><div class="glyph">◷</div><h3>Browsing history</h3><p>A dedicated place to find pages you've visited.</p></article><article class="feature"><div class="glyph">☷</div><h3>Built-in controls</h3><p>Useful browser actions are kept close at hand.</p></article></div>
+<div class="safety"><h3>Safety-first, by design.</h3><p>We believe a browser should put users in control. Valley is developed with a safety-first mindset, clear user controls and careful attention to the browsing experience. No browser can promise perfect security, so keep Valley updated and download it only from sources you trust.</p></div>
+</div></section>
+<section class="tutorial" id="install"><div class="wrap"><div class="section-head"><div class="eyebrow">Get started</div><h2>Install Valley on Android.</h2><p>Four simple steps to get Valley running on your device.</p></div>
+<div class="steps">
+ <article class="step"><div class="step-head"><span class="num">1</span><h3>Download Valley</h3></div><p>Tap the download button. Your browser will save <b>Valley-1.0.apk</b> to your Downloads folder.</p><div class="phone-shot"><div class="phone-icon">↓</div><strong>Valley-1.0.apk</strong><small>Download complete</small><span class="fake-button">Open downloads</span></div></article>
+ <article class="step"><div class="step-head"><span class="num">2</span><h3>Open the APK</h3></div><p>Open your Downloads folder and tap <b>Valley-1.0.apk</b> to start the Android installer.</p><div class="phone-shot"><div class="phone-icon">📁</div><strong>Downloads</strong><div class="fake-row">📦 &nbsp; Valley-1.0.apk</div><small>Tap the file to continue</small></div></article>
+ <article class="step"><div class="step-head"><span class="num">3</span><h3>Review Android's prompt</h3></div><p>If Android asks for permission to install apps from your browser, review the prompt. Only allow the source if you trust where the APK came from.</p><div class="phone-shot"><div class="phone-icon">⚙</div><strong>Install unknown apps</strong><div class="fake-row">Allow from this source <b style="float:right;color:#d96d25">●</b></div><small>Menu wording differs by device.</small></div></article>
+ <article class="step"><div class="step-head"><span class="num">4</span><h3>Install and open</h3></div><p>Return to the installer, review the app details and tap <b>Install</b>. When it finishes, open Valley.</p><div class="phone-shot"><div class="phone-icon">◈</div><strong>Valley</strong><small>Ready to install</small><span class="fake-button">Install</span></div></article>
+</div><p class="note">Android may show additional security checks. Read them carefully and do not bypass warnings you do not understand. Installation steps and menu names can vary by Android version and device.</p>
+</div></section>
+<section class="download-panel"><h2>Make the web feel yours.</h2><p>Discover a different way to browse. Download Valley for Android.</p><a class="btn" href="Valley-1.0.apk" download data-valley-download>↓ &nbsp; Download Valley for Android</a><div class="download-count" aria-live="polite"><strong id="valley-download-count">—</strong><span class="count-label">download requests</span></div><div class="status">Valley 1.0 – Terai</div></section>
+<footer><div class="foot-top"><div class="brand">Valley<span style="color:#e87832">.</span></div><nav class="foot-links"><a href="#features">Features</a><a href="#reader">Reader Mode</a><a href="#tabs">Tab management</a><a href="#install">Installation guide</a><a href="#top">Back to top ↑</a></nav></div>
+<div class="foot-groups">
+ <details><summary>Explore Valley</summary><p>Smart Search, Reader Mode, translation, tab groups, page cleanup, Favourites and History.</p></details>
+ <details><summary>Downloads</summary><p><a href="Valley-1.0.apk" download data-valley-download>Download Valley-1.0.apk</a> for Android.</p></details>
+ <details><summary>About Valley</summary><p>Valley is an independent browser project built around a considered browsing experience.</p></details>
+ <details><summary>Open source</summary><p>Valley is open source. Add the official repository link here when the public repository URL is ready.</p></details>
+ <details><summary>Safety and privacy</summary><p>Use trusted download sources, keep the browser updated and review permissions carefully. Security depends on the build, device and browsing environment.</p></details>
+</div><div class="foot-meta"><p>Valley 1.0 – Terai</p><p>Independent project · Android</p><p>© 2026 Valley Project.</p><p><a href="#top">Back to top</a> &nbsp; | &nbsp; <a href="#install">Installation guide</a></p></div></footer>
+
+<script>
+(() => {
+  // Set this to the URL of the deployed Valley download-counter Worker.
+  // Example: https://valley-download-counter.YOUR-SUBDOMAIN.workers.dev
+  const COUNTER_API = "https://valley-download-counter.vidya-gwsweb.workers.dev";
+  const countNode = document.getElementById("valley-download-count");
+  const links = document.querySelectorAll("[data-valley-download]");
+
+  const configured = !COUNTER_API.includes("YOUR-WORKER-NAME") &&
+                     !COUNTER_API.includes("YOUR-SUBDOMAIN");
+
+  async function refreshCount() {
+    if (!configured) {
+      if (countNode) countNode.textContent = "—";
+      return;
+    }
+    try {
+      const response = await fetch(COUNTER_API + "/count", { cache: "no-store" });
+      if (!response.ok) throw new Error("Counter unavailable");
+      const data = await response.json();
+      if (countNode && Number.isFinite(data.count)) {
+        countNode.textContent = data.count.toLocaleString();
+      }
+    } catch (_) {
+      if (countNode) countNode.textContent = "—";
+    }
+  }
+
+  links.forEach(link => {
+    link.addEventListener("click", async event => {
+      if (!configured) return; // APK download still works before the counter is configured.
+      event.preventDefault();
+      const href = link.href;
+      link.setAttribute("aria-busy", "true");
+      try {
+        await fetch(COUNTER_API + "/count", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}",
+          keepalive: true
+        });
+      } catch (_) {
+        // Do not block the APK download if the counter service is temporarily unavailable.
+      }
+      const download = document.createElement("a");
+      download.href = href;
+      download.download = "Valley-1.0.apk";
+      document.body.appendChild(download);
+      download.click();
+      download.remove();
+      link.removeAttribute("aria-busy");
+      refreshCount();
+    });
+  });
+
+  refreshCount();
+})();
+</script>
+
+</body></html>
