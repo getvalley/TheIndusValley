@@ -1,0 +1,214 @@
+/* =====================================================================
+   Bricolage Grotesque — the site's one typeface (same as the app).
+   Self-hosted variable file: weights 200-800 from a single request,
+   no Google Fonts round trip, no flash of a fallback face.
+   ===================================================================== */
+@font-face{
+  font-family:"Bricolage Grotesque";
+  src:url("fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight:200 800;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face{
+  font-family:"Bricolage Grotesque Display";
+  src:url("fonts/BricolageGrotesque-Display.woff2") format("woff2");
+  font-weight:200 800;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* =====================================================================
+   Valley · theme layer (dark + light) and dotted pattern
+   Loaded after each page's own <style>, so it can restyle every page.
+   data-theme="dark" | "light" is set on <html> by theme.js
+   ===================================================================== */
+
+/* ---------- dotted pattern (shared) ---------- */
+.dotfield{
+  --dot-gap:22px;
+  position:absolute;top:0;right:0;z-index:0;pointer-events:none;
+  width:min(58vw,600px);height:min(44vw,420px);
+  background-image:radial-gradient(circle,var(--dot) 1.55px,transparent 2.1px);
+  background-size:var(--dot-gap) var(--dot-gap);
+  background-position:right top;
+  -webkit-mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 0,rgba(0,0,0,.62) 36%,transparent 74%);
+          mask-image:radial-gradient(ellipse 100% 100% at 100% 0,#000 0,rgba(0,0,0,.62) 36%,transparent 74%);
+}
+.dotfield.l{right:auto;left:0;background-position:left top;
+  -webkit-mask-image:radial-gradient(ellipse 100% 100% at 0 0,#000 0,rgba(0,0,0,.62) 36%,transparent 74%);
+          mask-image:radial-gradient(ellipse 100% 100% at 0 0,#000 0,rgba(0,0,0,.62) 36%,transparent 74%)}
+.page-hero,.download-panel{position:relative;overflow:hidden}
+.page-hero>.wrap,.download-panel>*:not(.dotfield){position:relative;z-index:1}
+@media(max-width:760px){.dotfield{width:78vw;height:300px;--dot-gap:19px}}
+
+/* =====================================================================
+   DARK  (photo logo)
+   ===================================================================== */
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0c0706;--panel:#150d0a;--panel2:#1b110d;--text:#f7efe6;--muted:#b5a79a;--line:#2e1f18;
+  --orange:#ff9b45;--orange2:#ff7137;--dot:#f09a55;
+  --logo:url(assets/logo-dark.jpg);
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
+
+/* top bar: dark surface, the photo is the logo */
+html[data-theme="dark"] .top-download{
+  background-color:#0c0706f2;background-image:none;
+  -webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px);
+  box-shadow:0 1px 0 #ffffff14,0 10px 30px -14px #000c}
+html[data-theme="dark"] .top-download:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,#ff8a3d55 30%,#ff8a3d55 70%,transparent)}
+html[data-theme="dark"] .nav .bn{
+  height:calc(var(--h) - 16px);width:calc((var(--h) - 16px)*2.3137);margin:8px 0;
+  border-radius:9px;box-shadow:0 0 0 1px #ffffff1a,0 6px 20px -8px #ff6a1f66}
+html[data-theme="dark"] .brand{border-radius:12px;box-shadow:0 0 0 1px #ffffff1f,0 10px 30px -12px #ff6a1f88}
+html[data-theme="dark"] .nav .menu,
+html[data-theme="dark"] .nav .menu a,
+html[data-theme="dark"] .nav .menu a:hover,
+html[data-theme="dark"] .nav .menu a.cur{color:#f3ebe1!important}
+html[data-theme="dark"] .nav .menu a:hover,
+html[data-theme="dark"] .nav .menu a.cur{color:#ffb070!important}
+html[data-theme="dark"] .nav .menu a:after{background:#ff9b45!important}
+html[data-theme="dark"] .menu-btn,html[data-theme="dark"] .menu-btn:hover{color:#f3ebe1!important}
+html[data-theme="dark"] .menu-mark i{background:#f3ebe1!important}
+@media(max-width:899px){
+  html[data-theme="dark"] .nav .menu{background:#100907f5!important;border-color:#ffffff1c!important;box-shadow:0 22px 42px -22px #000!important}
+  html[data-theme="dark"] .nav .menu a,
+  html[data-theme="dark"] .nav .menu a:hover,
+  html[data-theme="dark"] .nav .menu a.cur{border-bottom-color:#ffffff14!important}
+  html[data-theme="dark"] .menu-btn:hover,html[data-theme="dark"] .menu-btn:active{background:#ffffff0f}
+}
+
+/* warm the dark surfaces to match the logo */
+html[data-theme="dark"] header,
+html[data-theme="dark"] .page-hero{background:radial-gradient(ellipse at 50% 30%,#4a2412 0,#1c0f0a 38%,#0c0706 76%)}
+html[data-theme="dark"] .feature,
+html[data-theme="dark"] .info-card{background:#130b08;border-color:#ffffff14}
+html[data-theme="dark"] .feature:hover{background:#1a100c}
+html[data-theme="dark"] .showcase{background:#100908}
+html[data-theme="dark"] .show,
+html[data-theme="dark"] .video-card,
+html[data-theme="dark"] .translation,
+html[data-theme="dark"] .compare-wrap{background:#150d0a}
+html[data-theme="dark"] .step,
+html[data-theme="dark"] .flow-step{background:#140c09}
+html[data-theme="dark"] .tutorial{background:linear-gradient(180deg,#160d09,#0c0706)}
+html[data-theme="dark"] .download-panel{background:radial-gradient(ellipse at center,#4a2412,#150c08 66%)}
+html[data-theme="dark"] .browser-top{background:#211613}
+html[data-theme="dark"] .address{background:#0e0806}
+
+/* footer follows the theme */
+html[data-theme="dark"] footer{background:#0a0605;color:#f3ebe1;border-top:1px solid #ffffff12}
+html[data-theme="dark"] footer .foot-top,
+html[data-theme="dark"] footer .foot-groups,
+html[data-theme="dark"] footer .foot-groups details{border-color:#ffffff14}
+html[data-theme="dark"] .foot-links{color:#b9a99b}
+html[data-theme="dark"] .foot-links a:hover{color:#ffb070}
+html[data-theme="dark"] .foot-groups summary{color:#f3ebe1}
+html[data-theme="dark"] .foot-groups p{color:#a89a8d}
+html[data-theme="dark"] .foot-meta{color:#8d7f73}
+html[data-theme="dark"] .foot-groups a,html[data-theme="dark"] .foot-meta a{color:#ff9b45}
+
+/* =====================================================================
+   LIGHT  (current logo)
+   ===================================================================== */
+html[data-theme="light"]{
+  color-scheme:light;
+  --bg:#fff5ee;--panel:#fffaf6;--panel2:#fff0e5;--text:#22110a;--muted:#6f5a4b;--line:#ecd6c6;
+  --orange:#e8590c;--orange2:#d9480f;--dot:#d9701f;
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] ::selection{background:#ffb27a99}
+
+html[data-theme="light"] header,
+html[data-theme="light"] .page-hero{
+  background:radial-gradient(ellipse at 50% 30%,#ffd6b8 0,#ffe8d9 40%,#fff5ee 76%);
+  border-bottom:1px solid #2b120814}
+html[data-theme="light"] header:before,
+html[data-theme="light"] header:after{background:radial-gradient(circle,#ff8a3d33,#0000 65%)}
+html[data-theme="light"] .eyebrow{color:#b8501a}
+html[data-theme="light"] h1 .g{background:linear-gradient(100deg,#b93a0a,#e8590c 50%,#f08a3d);-webkit-background-clip:text;background-clip:text}
+html[data-theme="light"] .lead,
+html[data-theme="light"] .page-hero p{color:#6f5a4b}
+html[data-theme="light"] .status{color:#8d7565}
+
+html[data-theme="light"] .btn{box-shadow:0 10px 26px -10px #e8590c88;border-color:#e8590c55}
+html[data-theme="light"] .btn.secondary{background:#2b12080a;color:var(--text);border-color:#2b120830;box-shadow:none}
+
+/* mock browser */
+html[data-theme="light"] .browser{border-color:#2b120822;background:#fffaf6ee;box-shadow:0 34px 80px -30px #7a2f0a55}
+html[data-theme="light"] .browser-top{background:#f8e5d6;border-bottom-color:#2b120814}
+html[data-theme="light"] .dot{background:#d5b9a4}
+html[data-theme="light"] .address{background:#fff;border-color:#2b120818;color:#7a6455}
+html[data-theme="light"] .browser-body{background:linear-gradient(135deg,#fff1e6,#ffe3d0)}
+html[data-theme="light"] .mock-copy p,
+html[data-theme="light"] .mock-card small{color:#7a6455}
+html[data-theme="light"] .mock-pill{background:#ffd7bb;color:#a8410d}
+html[data-theme="light"] .mock-card{border-color:#2b120814;background:#ffffff99}
+html[data-theme="light"] .mock-card.on{border-color:#e8590c99;background:#ff9b4528}
+
+/* cards and sections */
+html[data-theme="light"] .feature,
+html[data-theme="light"] .info-card{background:#fffaf6;border-color:#2b120814;box-shadow:0 1px 2px #7a2f0a0a}
+html[data-theme="light"] .feature:hover{background:#fff;border-color:#e8590c66}
+html[data-theme="light"] .feature:before{background:radial-gradient(280px circle at var(--mx,50%) var(--my,0),#ff9b4533,#0000)}
+html[data-theme="light"] .glyph{color:#d9560f;border-color:#e8590c33;background:#ff9b4520}
+html[data-theme="light"] .showcase{background:#ffeadb;border-block-color:#2b120810}
+html[data-theme="light"] .show,
+html[data-theme="light"] .video-card,
+html[data-theme="light"] .translation,
+html[data-theme="light"] .compare-wrap{background:#fffaf6;border-color:#2b120820;box-shadow:0 24px 60px -30px #7a2f0a55}
+html[data-theme="light"] .video-view{background:radial-gradient(ellipse,#ffcfae,#ffeee2 75%)}
+html[data-theme="light"] .video-view .media-frame{border-color:#2b120822}
+html[data-theme="light"] .compare-labels{color:#6f5a4b}
+html[data-theme="light"] .compare-labels b{color:#c2410c}
+html[data-theme="light"] .tutorial{background:linear-gradient(180deg,#ffeadb,#fff5ee)}
+html[data-theme="light"] .step,
+html[data-theme="light"] .flow-step{background:#fffaf6;border-color:#2b120814}
+html[data-theme="light"] .phone-shot{border-color:#2b120820}
+html[data-theme="light"] .safety,
+html[data-theme="light"] .caveat{border-color:#e8590c44;background:linear-gradient(135deg,#ffe8d6,#fff7f1);color:#6f5a4b}
+html[data-theme="light"] .safety h3{color:#b8420f}
+html[data-theme="light"] .safety p{color:#6f5a4b}
+html[data-theme="light"] .caveat b{color:#b8420f}
+html[data-theme="light"] .tag{border-color:#e8590c55;color:#b8420f}
+html[data-theme="light"] .note{color:#8d7565}
+html[data-theme="light"] .download-panel{background:radial-gradient(ellipse at center,#ffc9a3,#ffeadb 70%);border-block-color:#2b120814}
+html[data-theme="light"] .download-panel p,
+html[data-theme="light"] .download-count{color:#6f5a4b}
+html[data-theme="light"] .download-count strong{color:#22110a}
+html[data-theme="light"] .download-count .count-label{color:#8d7565}
+html[data-theme="light"] footer{background:#fbe7d8;color:#22110a}
+html[data-theme="light"] footer .foot-top,
+html[data-theme="light"] footer .foot-groups,
+html[data-theme="light"] footer .foot-groups details{border-color:#2b12081f}
+html[data-theme="light"] .page-footer{color:#8d7565;border-top-color:#2b120814}
+html[data-theme="light"] .page-footer a{color:#b8420f}
+
+/* =====================================================================
+   Theme toggle button (injected by theme.js into .nav)
+   ===================================================================== */
+.theme-toggle{
+  flex:none;width:38px;height:38px;margin-left:18px;border-radius:50%;cursor:pointer;
+  display:inline-grid;place-items:center;padding:0;
+  border:1px solid currentColor;background:transparent;
+  transition:transform .3s cubic-bezier(.3,1.5,.5,1),background .25s,border-color .25s,color .25s;
+  -webkit-tap-highlight-color:transparent}
+.theme-toggle svg{width:18px;height:18px;display:block}
+.theme-toggle:active{transform:scale(.9)}
+.theme-toggle .i-sun{display:none}
+html[data-theme="dark"] .theme-toggle{color:#f3ebe1;border-color:#ffffff30}
+html[data-theme="dark"] .theme-toggle:hover{border-color:#ff9b45;color:#ffb070;background:#ff9b4514}
+html[data-theme="dark"] .theme-toggle .i-sun{display:block}
+html[data-theme="dark"] .theme-toggle .i-moon{display:none}
+html[data-theme="light"] .theme-toggle{color:#2b1208;border-color:#2b120833}
+html[data-theme="light"] .theme-toggle:hover{border-color:#e8590c;color:#b8420f;background:#ff9b4518}
+@media(max-width:899px){.theme-toggle{margin-left:6px}}
+
+/* smooth colour change when switching */
+html.theme-anim,html.theme-anim *,html.theme-anim *:before,html.theme-anim *:after{
+  transition:background-color .35s ease,border-color .35s ease,color .35s ease,box-shadow .35s ease!important}
+@media(prefers-reduced-motion:reduce){html.theme-anim,html.theme-anim *{transition:none!important}}
