@@ -1,0 +1,53 @@
+name: Deploy Valley Website
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "website*.zip"
+      - ".github/workflows/deploy-valley-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build site from zip
+        run: |
+          set -euo pipefail
+          zip=$(ls website*.zip 2>/dev/null | sort -V | tail -n1 || true)
+          if [ -z "$zip" ]; then echo "No website*.zip found in repo root"; exit 1; fi
+          echo "Using $zip"
+          mkdir -p _unzipped _site
+          unzip -q "$zip" -d _unzipped -x "__MACOSX/*"
+          idx=$(find _unzipped -name index.html | awk '{print length, $0}' | sort -n | head -n1 | cut -d' ' -f2-)
+          if [ -z "$idx" ]; then echo "No index.html inside $zip"; exit 1; fi
+          cp -a "$(dirname "$idx")"/. _site/
+          touch _site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
