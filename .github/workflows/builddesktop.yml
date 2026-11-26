@@ -1,0 +1,99 @@
+name: Build Valley desktop
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'Valley-Desktop.zip'
+      - '.github/workflows/build.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            py: python3
+          - os: windows-latest
+            py: python
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Unzip Valley-Desktop.zip
+        run: |
+          ${{ matrix.py }} -m zipfile -e Valley-Desktop.zip src
+          # If the zip has one top-level folder, step into it
+          if [ ! -f src/package.json ]; then
+            inner=$(dirname "$(find src -maxdepth 2 -name package.json | head -n 1)")
+            mv "$inner" app-src
+          else
+            mv src app-src
+          fi
+          ls app-src
+
+      - name: Install
+        working-directory: app-src
+        run: npm install --no-audit --no-fund
+
+      - name: Test
+        working-directory: app-src
+        run: npm test
+
+      - name: Package (unsigned)
+        working-directory: app-src
+        run: npx electron-builder --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: valley-${{ matrix.os }}
+          path: |
+            app-src/dist/*.exe
+            app-src/dist/*.dmg
+            app-src/dist/*.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version from the zip
+        id: ver
+        run: |
+          v=$(python3 - << 'PY'
+          import zipfile, json
+          z = zipfile.ZipFile('Valley-Desktop.zip')
+          name = next(n for n in z.namelist() if n.endswith('package.json') and n.count('/') <= 1)
+          print(json.loads(z.read(name))['version'])
+          PY
+          )
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: valley-*
+          path: release-files
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Valley ${{ steps.ver.outputs.version }}
+          files: release-files/*
+          fail_on_unmatched_files: true
